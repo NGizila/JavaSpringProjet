@@ -40,4 +40,19 @@ public class Person implements Serializable {
     return id != null && Objects.equals(id, person.id);
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
 }
