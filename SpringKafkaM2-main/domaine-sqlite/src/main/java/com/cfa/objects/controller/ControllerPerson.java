@@ -5,6 +5,8 @@ import com.cfa.objects.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,4 +34,10 @@ public class ControllerPerson {
         return person.findByName(name);
     };
 
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
+    public ResponseEntity<String> deletePersonById(@PathVariable(value = "id") int id) {
+        String personName = person.findById(id).get().getName();
+        person.deleteById(id);
+        return new ResponseEntity<>("User " + id + " : " + personName + " was deleted", HttpStatus.NOT_FOUND);
+    };
 }
