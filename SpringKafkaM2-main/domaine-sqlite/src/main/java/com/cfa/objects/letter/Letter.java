@@ -27,10 +27,10 @@ public class Letter {
     private String message;
 
     @Column(name = "creationDate")
-    private Date creationDate;
+    private String creationDate;
 
     @Column(name = "treatmentDate")
-    private Date treatmentDate;
+    private String treatmentDate;
 
     @Override
     public boolean equals(Object obj) {

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 @RestController
 @Slf4j
@@ -22,6 +23,7 @@ public class ControllerLetter {
 
     @GetMapping("/")
     public List<Letter> getAllLetters(){
+        System.out.println("LMAAAOOOOO :   " + new Date());
         return letter.findAll();
     }
 
@@ -34,6 +36,13 @@ public class ControllerLetter {
         letter.deleteById(id);
         return new ResponseEntity<>("User " + id + " was deleted", HttpStatus.NOT_FOUND);
     };
+
+/*    @PostMapping(value = "/response")
+    public ResponseEntity postLetter(@RequestBody Letter letterForm) {
+        letter.save(letterForm);
+        return ResponseEntity.ok(HttpStatus.OK);
+
+    };*/
 
 
 }
