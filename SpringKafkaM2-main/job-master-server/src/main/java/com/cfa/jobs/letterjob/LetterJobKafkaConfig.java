@@ -1,7 +1,6 @@
 package com.cfa.jobs.letterjob;
 
 import com.cfa.objects.letter.Letter;
-import com.cfa.objects.message.Message;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -30,9 +29,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 
-/*@Configuration
+//@Configuration
 @EnableBatchIntegration
-@EnableBatchProcessing*/
+@EnableBatchProcessing
 public class LetterJobKafkaConfig {
 
     public static String TOPIC = "step-execution-events-lol";

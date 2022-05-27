@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 @RestController
 @Slf4j
-@RequestMapping(value = "/v1/jobcontroller/letter")
+@RequestMapping(produces = "application/json;charset=utf-8",value = "/v1/jobcontroller/letter")
 @RequiredArgsConstructor
 public class ControllerLetter {
 
@@ -37,9 +37,9 @@ public class ControllerLetter {
     };
 
 @PostMapping(value = "/response")
-public ResponseEntity<?> postLetter(@RequestBody Letter letterForm) {
+public void postLetter(@RequestBody Letter letterForm) {
     letter.save(letterForm);
-    return ResponseEntity.ok(HttpStatus.OK);
+    //return ResponseEntity.ok(HttpStatus.OK);
 
 };
 

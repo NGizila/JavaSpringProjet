@@ -44,10 +44,12 @@ public class JobController {
     runJobB(this.letterJob, label);
   }
 
-/*  @RequestMapping("/letterKafkaJob")
+/*
+  @RequestMapping("/letterKafkaJob")
   public void letterKafkaJob(@RequestParam(value = "label") final String label) {
     runJobB(this.letterKafkaJob, label);
-  }*/
+  }
+*/
 
   private void runJobB(final Job parJob, final String label) {
     final JobParameters locParamJobParameters = new JobParametersBuilder()

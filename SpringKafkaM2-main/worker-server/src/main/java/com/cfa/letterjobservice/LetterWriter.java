@@ -1,10 +1,13 @@
-package com.cfa.jobs.letterjob;
+package com.cfa.letterjobservice;
 
 import com.cfa.objects.controller.ControllerLetter;
 import com.cfa.objects.letter.Letter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.messaging.Source;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,29 +15,15 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
-public class SimpleWriter implements ItemWriter<Letter> {
-    @Autowired
-    ControllerLetter controllerLetter;
+public class LetterWriter implements ItemWriter<Letter> {
+
 
     @Override
     public void write(List<? extends Letter> list) throws Exception {
-        for (Letter letter: list) {
-            controllerLetter.postLetter(letter);
-            writeOnFile("Message treated: " + letter.getMessage() + "\n");
-        }
-
-    }
-
-/*
-    public static void postLetter(List<Letter> letterList) throws IOException, InterruptedException
-    {
-
-        for (Letter letter: letterList) {
+        for (Letter letter : list){
 
             String requestBody = "";
 
@@ -57,16 +46,16 @@ public class SimpleWriter implements ItemWriter<Letter> {
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
 
-            System.out.println(response.body());
-            writeOnFile("Message treated: " + letter.getMessage() + "\n");
+            writeOnFile("Message seen : " + letter.getMessage());
         }
     }
-*/
 
-    public static void writeOnFile(String msg) throws IOException {
+        public void writeOnFile(String msg) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("conversation.txt",true));
         writer.write(msg);
         writer.close();
+
+
     }
 
 }
