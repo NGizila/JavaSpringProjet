@@ -1,5 +1,6 @@
 package com.cfa.letterjobservice;
 
+import com.cfa.objects.controller.ControllerLetter;
 import com.cfa.objects.letter.Letter;
 import com.cfa.remotepartition.PartitionConfig;
 import org.springframework.batch.integration.chunk.RemoteChunkingWorkerBuilder;
@@ -32,33 +33,20 @@ public class LetterJobConfig {
     @Autowired
     private ConsumerFactory kafkaFactory;
 
+    @Autowired
+    ControllerLetter controllerLetter;
+
 
     @Bean
     public IntegrationFlow workerFlow() {
         return this.workerBuilder
-                .itemProcessor(itemProcessor())
-                .itemWriter(itemWriter())
+                .itemProcessor(new LetterProcessor())
+                .itemWriter(new LetterWriter(controllerLetter))
                 .inputChannel(requests())
                 .outputChannel(replies())
                 .build();
     }
-
-    @Bean
-    public ItemProcessor<Letter, Letter> itemProcessor() {
-        return item -> {
-            System.out.println("processing letter " + item);
-            return item;
-        };
-    }
-
-    @Bean
-    public ItemWriter<Letter> itemWriter() {
-        return items -> {
-            for (Letter item : items) {
-                System.out.println("writing letter " + item);
-            }
-        };
-    }
+    
 
     @Bean
     public DirectChannel requests(){

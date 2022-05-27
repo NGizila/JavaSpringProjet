@@ -19,13 +19,14 @@ import java.util.List;
 
 @AllArgsConstructor
 public class LetterWriter implements ItemWriter<Letter> {
-
+    @Autowired
+    ControllerLetter controllerLetter;
 
     @Override
     public void write(List<? extends Letter> list) throws Exception {
-        for (Letter letter : list){
-
-            writeOnFile("Message seen : " + letter.getMessage());
+        for (Letter letter: list) {
+            controllerLetter.postLetter(letter);
+            writeOnFile("Message treated: " + letter.getMessage() + "\n");
         }
     }
 
