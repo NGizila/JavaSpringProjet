@@ -27,6 +27,11 @@ public class SimpleWriter implements ItemWriter<Letter> {
             controllerLetter.postLetter(letter);
             writeOnFile("Message treated: " + letter.getMessage() + "\n");
         }
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
 
     }
 

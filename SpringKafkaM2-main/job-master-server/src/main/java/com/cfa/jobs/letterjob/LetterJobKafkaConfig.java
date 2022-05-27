@@ -29,7 +29,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 
-//@Configuration
+@Configuration
 @EnableBatchIntegration
 @EnableBatchProcessing
 public class LetterJobKafkaConfig {
@@ -60,8 +60,8 @@ public class LetterJobKafkaConfig {
 
     @Bean
     public Step letterStep() {
-        return this.managerStepBuilderFactory.get("okletterStep")
-                .<Letter,Letter>chunk(1)
+        return this.managerStepBuilderFactory.get("letterStep")
+                .<Letter,Letter>chunk(10)
                 .reader(readFromCsv())
                 .outputChannel(requests())
                 .inputChannel(replies())

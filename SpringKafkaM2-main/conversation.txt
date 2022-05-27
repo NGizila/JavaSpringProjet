@@ -8,3 +8,23 @@ Message treated: 1er message
 Message treated: lorem ipsum
 Message treated: 3ieme message
 Message treated: omaiwa no shinderu
+Message treated: message
+Message treated: 1er message
+Message treated: lorem ipsum
+Message treated: 3ieme message
+Message treated: omaiwa no shinderu
+Message treated: message
+Message treated: 1er message
+Message treated: lorem ipsum
+Message treated: 3ieme message
+Message treated: omaiwa no shinderu
+Message treated: message
+Message treated: 1er message
+Message treated: lorem ipsum
+Message treated: 3ieme message
+Message treated: omaiwa no shinderu
+Message treated: message
+Message treated: 1er message
+Message treated: lorem ipsum
+Message treated: 3ieme message
+Message treated: omaiwa no shinderu
