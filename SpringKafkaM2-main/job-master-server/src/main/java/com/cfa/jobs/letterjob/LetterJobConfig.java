@@ -1,5 +1,6 @@
 package com.cfa.jobs.letterjob;
 
+import com.cfa.objects.controller.ControllerLetter;
 import com.cfa.objects.letter.Letter;
 import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.batch.core.Job;
@@ -38,6 +39,9 @@ public class LetterJobConfig {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    ControllerLetter controllerLetter;
+
     @Bean("letterJob")
     public Job letterJob() {
         return jobBuilderFactory
@@ -51,7 +55,7 @@ public class LetterJobConfig {
         return this.stepBuilderFactory
                 .get("letterStep").<Letter,Letter>chunk(10)
                 .reader(readFromCsv())
-                .writer(new SimpleWriter())
+                .writer(new SimpleWriter(controllerLetter))
                 .processor(new SimpleProcessor())
                 .build();
     }
