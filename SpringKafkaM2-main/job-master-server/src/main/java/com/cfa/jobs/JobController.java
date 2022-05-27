@@ -23,10 +23,33 @@ public class JobController {
   private final JobLauncher jobLauncher;
   private final Job simpleJob;
 
+  private final Job simpleNewJob;
+
+  private final Job letterJob;
+
+  private final  Job jdbcBatchItemWriterJob;
+
+
   @RequestMapping("/example")
   public void simpleJob(@RequestParam(value = "label") final String label) {
     runJobB(this.simpleJob, label);
   }
+
+    @RequestMapping("/example1")
+  public void simpleNewJob(@RequestParam(value = "label") final String label) {
+    runJobB(this.simpleNewJob, label);
+  }
+
+  @RequestMapping("/jdbcBatchItemWriterJob")
+  public void jdbcBatchItemWriterJob(@RequestParam(value = "label") final String label) {
+    runJobB(this.jdbcBatchItemWriterJob, label);
+  }
+
+  @RequestMapping("/letterJob")
+  public void letterJob(@RequestParam(value = "label") final String label) {
+    runJobB(this.letterJob, label);
+  }
+
 
   private void runJobB(final Job parJob, final String label) {
     final JobParameters locParamJobParameters = new JobParametersBuilder()
