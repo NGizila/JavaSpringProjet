@@ -50,37 +50,15 @@ public class LetterJobConfig {
     public Step letterStep() {
         return this.stepBuilderFactory
                 .get("letterStep").<Letter,Letter>chunk(10) //.chunk(10)
-                .reader(readFromCsv()) //reader(itemReader())
-                /*.writer(batchItemWriter())*/
+                .reader(readFromCsv())
                 .writer(new SimpleWriter())
-                .build();
-    }
-
-    /*@Bean
-    public Step letterStep() {
-        return this.stepBuilderFactory
-                .get("letterStep").<List<String>,Letter>chunk(10) //.chunk(10)
-                .reader(new SimpleReader()) //reader(itemReader())
                 .processor(new SimpleProcessor())
-                .writer(new SimpleWriter())
                 .build();
-    }*/
-
-    @Bean
-    public JdbcBatchItemWriter<Letter> batchItemWriter() {
-        JdbcBatchItemWriter<Letter> writer = new JdbcBatchItemWriter<Letter>();
-                writer.setDataSource(dataSource);
-                writer.setSql("INSERT INTO letter (creationDate,message,treatmentDate) VALUE ( :creationDate, :message, :treatmentDate)");
-                writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Letter>());
-                //.beanMapped()
-                //.build();
-        return writer;
     }
 
     public FlatFileItemReader<Letter> readFromCsv() {
         FlatFileItemReader<Letter> reader = new FlatFileItemReader<>();
-        //reader.setResource(new ClassPathResource("input/inputData1.csv"));
-        reader.setResource(new FileSystemResource("D://projects/cfa_2022/java/inputData1.csv"));
+        reader.setResource(new ClassPathResource("input/inputData1.csv"));
         reader.setLineMapper(new DefaultLineMapper<Letter>() {
             {
 
@@ -100,14 +78,4 @@ public class LetterJobConfig {
 
         return reader;
     }
-
-/*    @Bean
-    public Step letterStep() {
-        return this.stepBuilderFactory
-                .get("letterStep").<List<String>,List<String>>chunk(2) //.chunk(10)
-                .reader(new SimpleReader()) //reader(itemReader())
-                .processor(new SimpleProcessor())
-                //.writer(new SimpleWriter())
-                .build();
-    }*/
 }

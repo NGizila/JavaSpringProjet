@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class SimpleReader implements ItemReader<List<String>> {
     @Override
     public List<String> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        String chemin = "../../../../../JavaSpringProjet/SpringKafkaM2-main/samples.txt";
+        String chemin = "D://projects/cfa_2022/java/samples.txt";
         Scanner scanner = new Scanner(new File(chemin));
         List<String> result = null;
 

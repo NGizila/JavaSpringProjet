@@ -27,8 +27,6 @@ public class JobController {
 
   private final Job letterJob;
 
-  private final  Job jdbcBatchItemWriterJob;
-
 
   @RequestMapping("/example")
   public void simpleJob(@RequestParam(value = "label") final String label) {
@@ -38,11 +36,6 @@ public class JobController {
     @RequestMapping("/example1")
   public void simpleNewJob(@RequestParam(value = "label") final String label) {
     runJobB(this.simpleNewJob, label);
-  }
-
-  @RequestMapping("/jdbcBatchItemWriterJob")
-  public void jdbcBatchItemWriterJob(@RequestParam(value = "label") final String label) {
-    runJobB(this.jdbcBatchItemWriterJob, label);
   }
 
   @RequestMapping("/letterJob")
