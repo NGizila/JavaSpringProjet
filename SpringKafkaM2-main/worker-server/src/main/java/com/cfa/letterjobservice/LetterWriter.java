@@ -25,27 +25,6 @@ public class LetterWriter implements ItemWriter<Letter> {
     public void write(List<? extends Letter> list) throws Exception {
         for (Letter letter : list){
 
-            String requestBody = "";
-
-            ObjectMapper Obj = new ObjectMapper();
-            try {
-                requestBody = Obj.writeValueAsString(letter);
-                System.out.println(requestBody);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:7777/v1/jobcontroller/letter/response"))
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .setHeader("Content-Type", "application/json")
-                    .build();
-
-            HttpResponse<String> response = client.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-
             writeOnFile("Message seen : " + letter.getMessage());
         }
     }

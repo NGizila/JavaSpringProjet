@@ -9,7 +9,6 @@ public class LetterProcessor implements ItemProcessor<Letter, Letter> {
     public Letter process(Letter letter){
         Date date = new Date(System.currentTimeMillis());
         letter.setTreatmentDate(String.valueOf(date));
-        letter.setCreationDate(String.valueOf(date));
         return letter;
     }
 }
