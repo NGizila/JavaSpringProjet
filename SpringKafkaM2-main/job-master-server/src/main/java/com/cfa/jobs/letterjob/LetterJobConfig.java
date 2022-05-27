@@ -54,32 +54,11 @@ public class LetterJobConfig {
     public Step letterStep() {
         return this.stepBuilderFactory
                 .get("letterStep").<Letter,Letter>chunk(10)
-                .reader(readFromCsv())
+                .reader(new SimpleReader().readFromCsv())
                 .writer(new SimpleWriter(controllerLetter))
                 .processor(new SimpleProcessor())
                 .build();
     }
 
-    public FlatFileItemReader<Letter> readFromCsv() {
-        FlatFileItemReader<Letter> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("input/inputData1.csv"));
-        reader.setLineMapper(new DefaultLineMapper<Letter>() {
-            {
 
-                setLineTokenizer(new DelimitedLineTokenizer() {
-                    {
-                        setNames(new String[] { "creationDate","message","treatmentDate" });
-                    }
-                });
-
-                setFieldSetMapper(new BeanWrapperFieldSetMapper<Letter>() {
-                    {
-                        setTargetType(Letter.class);
-                    }
-                });
-            }
-        });
-
-        return reader;
-    }
 }

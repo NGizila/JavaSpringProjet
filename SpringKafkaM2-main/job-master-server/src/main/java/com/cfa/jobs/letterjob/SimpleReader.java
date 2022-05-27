@@ -1,10 +1,16 @@
 package com.cfa.jobs.letterjob;
 
+import com.cfa.objects.letter.Letter;
 import lombok.NoArgsConstructor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,21 +20,29 @@ import java.util.Scanner;
 
 
 @NoArgsConstructor
-public class SimpleReader implements ItemReader<List<String>> {
-    @Override
-    public List<String> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        String chemin = "D://projects/cfa_2022/java/samples.txt";
-        Scanner scanner = new Scanner(new File(chemin));
-        List<String> result = null;
+public class SimpleReader extends  FlatFileItemReader {
 
-        while (scanner.hasNextLine())
-        {
-            String line = scanner.nextLine();
-            if (line != null)
+    public FlatFileItemReader<Letter> readFromCsv() {
+        FlatFileItemReader<Letter> reader = new FlatFileItemReader<>();
+        reader.setResource(new ClassPathResource("input/inputData1.csv"));
+        reader.setLinesToSkip(1);
+        reader.setLineMapper(new DefaultLineMapper<>() {
             {
-                result.add(line);
+
+                setLineTokenizer(new DelimitedLineTokenizer() {
+                    {
+                        setNames(new String[] { "creationDate","message","treatmentDate" });
+                    }
+                });
+
+                setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {
+                    {
+                        setTargetType(Letter.class);
+                    }
+                });
             }
-        }
-    return result;
+        });
+
+        return reader;
     }
 }
