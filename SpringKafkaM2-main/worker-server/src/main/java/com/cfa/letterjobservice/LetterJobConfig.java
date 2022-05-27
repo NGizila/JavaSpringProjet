@@ -52,4 +52,4 @@ public class LetterJobConfig {
         return new QueueChannel();
     }
 
-    }
+}
