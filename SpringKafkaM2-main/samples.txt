@@ -1,3 +1,0 @@
-Test ligne 1
-Lorem ipsum
-etc etc

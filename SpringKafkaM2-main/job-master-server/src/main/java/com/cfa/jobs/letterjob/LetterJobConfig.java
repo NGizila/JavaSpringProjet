@@ -49,7 +49,7 @@ public class LetterJobConfig {
     @Bean
     public Step letterStep() {
         return this.stepBuilderFactory
-                .get("letterStep").<Letter,Letter>chunk(10) //.chunk(10)
+                .get("letterStep").<Letter,Letter>chunk(10)
                 .reader(readFromCsv())
                 .writer(new SimpleWriter())
                 .processor(new SimpleProcessor())
