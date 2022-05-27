@@ -29,7 +29,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 
-@Configuration
+//@Configuration
 @EnableBatchIntegration
 @EnableBatchProcessing
 public class LetterJobKafkaConfig {
