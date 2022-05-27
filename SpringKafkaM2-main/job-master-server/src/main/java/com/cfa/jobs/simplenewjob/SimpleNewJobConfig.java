@@ -23,7 +23,7 @@ public class SimpleNewJobConfig {
     private Source sources;
 
 
-    @Bean
+    @Bean("simpleNewJob")
     public Job simpleNewJob() throws Exception {
         return jobBuilderFactory
                 .get("simpleNewJob")

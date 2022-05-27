@@ -4,7 +4,9 @@ import com.cfa.objects.letter.Letter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.support.transaction.TransactionAwareProxyFactory;
+import org.springframework.web.client.RestTemplate;
 
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -19,13 +21,14 @@ public class SimpleWriter implements ItemWriter<Letter> {
     List<Letter> output = TransactionAwareProxyFactory.createTransactionalList();
 
     @Override
-    public void write(List<? extends Letter> items) throws Exception {
-        System.out.println(items);
+    public void write(List<? extends Letter> letter) throws Exception {
         /*output.addAll(items);*/
-        Letter letter = new Letter();
+        /*Letter letter = new Letter();
         letter.setMessage("lol");
         letter.setCreationDate("mmmm");
-        letter.setTreatmentDate("llll");
+        letter.setTreatmentDate("llll");*/
+
+        //getResult("http://localhost:9623/v1/jobcontroller/letter/response",letter);
 
 
 
@@ -46,7 +49,7 @@ public class SimpleWriter implements ItemWriter<Letter> {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:7777/v1/jobcontroller/letter/response"))
+                    .uri(URI.create("http://localhost:9623/v1/jobcontroller/letter/response"))
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .setHeader("Content-Type", "application/json")
                     .build();
@@ -57,6 +60,11 @@ public class SimpleWriter implements ItemWriter<Letter> {
             System.out.println(response.body());
         //}>
 
+    }
+
+    private Letter getResult(@NotNull final String parUrl, Letter request) {
+        final RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForObject(parUrl, request, Letter.class);
     }
 
 

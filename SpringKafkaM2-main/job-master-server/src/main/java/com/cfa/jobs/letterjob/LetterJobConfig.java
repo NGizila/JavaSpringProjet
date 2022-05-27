@@ -35,6 +35,7 @@ public class LetterJobConfig {
     @Autowired
     private Source sources;
 
+    @Autowired
     private DataSource dataSource;
 
     @Bean("letterJob")
@@ -50,7 +51,8 @@ public class LetterJobConfig {
         return this.stepBuilderFactory
                 .get("letterStep").<Letter,Letter>chunk(10) //.chunk(10)
                 .reader(readFromCsv()) //reader(itemReader())
-                .writer(new JdbcBatchItemWriter())
+                /*.writer(batchItemWriter())*/
+                .writer(new SimpleWriter())
                 .build();
     }
 
@@ -65,10 +67,10 @@ public class LetterJobConfig {
     }*/
 
     @Bean
-    public JdbcBatchItemWriter<Letter> jdbcBatchItemWriter() {
+    public JdbcBatchItemWriter<Letter> batchItemWriter() {
         JdbcBatchItemWriter<Letter> writer = new JdbcBatchItemWriter<Letter>();
                 writer.setDataSource(dataSource);
-                writer.setSql("INSERT INTO letter (creationDate,message,treatmentDate) VALUE ('creation_date', 'message', 'treatment_date')");
+                writer.setSql("INSERT INTO letter (creationDate,message,treatmentDate) VALUE ( :creationDate, :message, :treatmentDate)");
                 writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Letter>());
                 //.beanMapped()
                 //.build();

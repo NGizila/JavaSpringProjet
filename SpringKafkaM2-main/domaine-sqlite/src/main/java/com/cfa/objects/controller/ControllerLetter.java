@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 @RestController
 @Slf4j
-@RequestMapping(produces = "application/json; charset=UTF-8", value = "/v1/jobcontroller/letter")
+@RequestMapping(value = "/v1/jobcontroller/letter")
 @RequiredArgsConstructor
 public class ControllerLetter {
 
@@ -23,7 +23,6 @@ public class ControllerLetter {
 
     @GetMapping("/")
     public List<Letter> getAllLetters(){
-        System.out.println("LMAAAOOOOO :   " + new Date());
         return letter.findAll();
     }
 
@@ -37,12 +36,12 @@ public class ControllerLetter {
         return new ResponseEntity<>("User " + id + " was deleted", HttpStatus.NOT_FOUND);
     };
 
-/*    @PostMapping(value = "/response")
-    public ResponseEntity postLetter(@RequestBody Letter letterForm) {
-        letter.save(letterForm);
-        return ResponseEntity.ok(HttpStatus.OK);
+@PostMapping(value = "/response")
+public ResponseEntity<?> postLetter(@RequestBody Letter letterForm) {
+    letter.save(letterForm);
+    return ResponseEntity.ok(HttpStatus.OK);
 
-    };*/
+};
 
 
 }
