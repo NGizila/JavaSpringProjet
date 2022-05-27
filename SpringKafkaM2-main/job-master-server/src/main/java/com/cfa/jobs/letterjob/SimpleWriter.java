@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @AllArgsConstructor
 public class SimpleWriter implements ItemWriter<Letter> {
     @Autowired
